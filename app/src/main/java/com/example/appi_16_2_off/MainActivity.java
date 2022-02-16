@@ -18,8 +18,8 @@ public final class MainActivity extends AppCompatActivity {
     private String accessKey = "V9aaJ9tmuIBxgY4q40S9S2HNHTVhFjay0lcUzIwr5fM";
     @NotNull
     private String secretKey = "WeN7foTBeRPiDo5cLQW_d97IcN9tzKlNkN3CxbRrIkw";
-    private boolean isMultipleSelection;
-    private int REQUEST_CODE = 1;
+    private boolean isMultipleSelection = false;
+    final static int REQUEST_CODE = 1;
 
     @NotNull
     public final String getAccessKey() {
@@ -49,15 +49,14 @@ public final class MainActivity extends AppCompatActivity {
         this.isMultipleSelection = var1;
     }
 
+    @SuppressWarnings("deprecation")
     @SuppressLint("ResourceType")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(1300090);
-        UnsplashPhotoPicker var10000 = UnsplashPhotoPicker.INSTANCE;
-        Application var10001 = this.getApplication();
-        Intrinsics.checkNotNullExpressionValue(var10001, "this.application");
-        var10000.init(var10001, this.accessKey, this.secretKey, 20);
-        this.startActivityForResult(UnsplashPickerActivity.Companion.getStartingIntent((Context)this, this.isMultipleSelection), this.REQUEST_CODE);
+        setContentView(R.layout.activity_main);
+        Intrinsics.checkNotNullExpressionValue(this.getApplication(), "this.application");
+        UnsplashPhotoPicker.INSTANCE.init(this.getApplication(), this.accessKey, this.secretKey, 20);
+        this.startActivityForResult(UnsplashPickerActivity.Companion.getStartingIntent((Context)this, this.isMultipleSelection), REQUEST_CODE);
     }
 }
 
