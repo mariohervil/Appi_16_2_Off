@@ -32,17 +32,9 @@ public final class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intrinsics.checkNotNullExpressionValue(this.getApplication(), "this.application");
         UnsplashPhotoPicker.INSTANCE.init(this.getApplication(), this.accessKey, this.secretKey, 20);
         this.startActivityForResult(UnsplashPickerActivity.Companion.getStartingIntent((Context)this, this.isMultipleSelection), REQUEST_CODE);
-        URL unsplashEndpoint = null;
-        try {
-            unsplashEndpoint = new URL("https://api.unsplash.com/");
-            HttpsURLConnection myConnection =
-                    (HttpsURLConnection) unsplashEndpoint.openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //
 
 // Create connection
 
