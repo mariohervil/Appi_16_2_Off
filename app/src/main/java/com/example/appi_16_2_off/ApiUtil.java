@@ -1,4 +1,4 @@
-package com.example.appi_16_2_off.Model;
+package com.example.appi_16_2_off;
 
 import retrofit2.Retrofit;
 

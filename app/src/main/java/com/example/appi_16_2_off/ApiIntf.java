@@ -1,6 +1,6 @@
 package com.example.appi_16_2_off;
 
-import static com.example.appi_16_2_off.Model.ApiUtil.API_KEY;
+import static com.example.appi_16_2_off.ApiUtil.API_KEY;
 
 import com.example.appi_16_2_off.Model.Images;
 import com.example.appi_16_2_off.Model.Search;
