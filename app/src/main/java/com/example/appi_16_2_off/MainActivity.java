@@ -97,7 +97,7 @@ public final class MainActivity extends AppCompatActivity {
     private void getData() {
 
         isLoading = true;
-        ApiUtil.getApiInterface().getImages("flowers" ,page, 30)
+        ApiUtil.getApiInterface().getImages("flowers", page, 30)
                 .enqueue(new Callback<List<ImageModel>>() {
 
                     @Override
@@ -106,7 +106,6 @@ public final class MainActivity extends AppCompatActivity {
                             searchData("flowers");
                             list.addAll(response.body());
                             adapter.notifyDataSetChanged();
-
                         }
                         isLoading = false;
                         dialog.dismiss();
