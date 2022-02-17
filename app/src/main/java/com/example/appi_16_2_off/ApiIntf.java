@@ -2,7 +2,7 @@ package com.example.appi_16_2_off;
 
 import static com.example.appi_16_2_off.ApiUtil.API_KEY;
 
-import com.example.appi_16_2_off.Model.Images;
+import com.example.appi_16_2_off.Model.ImageModel;
 import com.example.appi_16_2_off.Model.Search;
 
 import java.util.List;
@@ -16,14 +16,14 @@ public interface ApiIntf {
 
     @Headers("Authorization: Client-ID "+ API_KEY)
     @GET("/photos")
-    Call<List<Images>> getImages(
+    Call<List<ImageModel>> getImages(
             @Query("page") int page,
             @Query("per_page") int perPage
     );
     @Headers("Authorization: Client-ID "+ API_KEY)
     @GET("search/photos")
     Call<Search> searchImage(
-            @Query("query") String query,
-            @Query("per_page") int perPage
+            @Query("query") String query
+
     );
 }

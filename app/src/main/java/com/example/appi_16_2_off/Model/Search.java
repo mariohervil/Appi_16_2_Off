@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 public class Search {
 
-    private ArrayList<Images> results;
+    private ArrayList<ImageModel> results;
 
 
-    public Search(ArrayList<Images> results) {
+    public Search(ArrayList<ImageModel> results) {
         this.results = results;
     }
 
-    public ArrayList<Images> getResults() {
+    public ArrayList<ImageModel> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<Images> results) {
+    public void setResults(ArrayList<ImageModel> results) {
         this.results = results;
     }
 }

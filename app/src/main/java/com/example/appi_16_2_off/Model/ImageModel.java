@@ -1,10 +1,10 @@
 package com.example.appi_16_2_off.Model;
 
-public class Images {
+public class ImageModel {
 
     private URLS urls;
 
-    public Images(URLS urls) {
+    public ImageModel(URLS urls) {
         this.urls = urls;
     }
 
