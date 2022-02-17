@@ -88,7 +88,7 @@ public final class MainActivity extends AppCompatActivity {
         boolean isMultipleSelection = false;
         this.startActivityForResult(UnsplashPickerActivity.Companion.getStartingIntent((Context) this, isMultipleSelection), REQUEST_CODE);
       *
-      *
+      *searchData("flowers");
       * */
         //
 // Create connection
@@ -103,10 +103,11 @@ public final class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<List<ImageModel>> call, Response<List<ImageModel>> response) {
                         if (response.body() != null) {
-                            searchData("flowers");
+                           //
                             list.addAll(response.body());
                             adapter.notifyDataSetChanged();
                         }
+
                         isLoading = false;
                         dialog.dismiss();
                         if (list.size() > 0) {
