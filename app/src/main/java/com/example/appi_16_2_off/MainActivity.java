@@ -39,7 +39,9 @@ public final class MainActivity extends AppCompatActivity {
     private int pageSize = 30;
     private boolean isLoading;
     private boolean isLastPage;
+    private String queried = "";
     final static int REQUEST_CODE = 1;
+    private static boolean hasSearched = false;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +73,13 @@ public final class MainActivity extends AppCompatActivity {
                 if (!isLoading && !isLastPage) {
                     if ((visibleItem + firstVisibleItemPosition >= totalItems) && firstVisibleItemPosition >= 0 && totalItems >= pageSize) {
                         page++;
-                        getData();
+
+                        if (hasSearched) {
+                            getData2();
+                        } else if (!hasSearched) {
+                            getData();
+                        }
+
 
                     }
                 }
@@ -97,13 +105,42 @@ public final class MainActivity extends AppCompatActivity {
     private void getData() {
 
         isLoading = true;
-        ApiUtil.getApiInterface().getImages("flowers", page, 30)
+        ApiUtil.getApiInterface().getImages(page, 30)
                 .enqueue(new Callback<List<ImageModel>>() {
 
                     @Override
                     public void onResponse(Call<List<ImageModel>> call, Response<List<ImageModel>> response) {
                         if (response.body() != null) {
-                           //
+                            //
+                            list.addAll(response.body());
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        isLoading = false;
+                        dialog.dismiss();
+                        if (list.size() > 0) {
+                            isLastPage = list.size() < pageSize;
+                        } else isLastPage = true;
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<ImageModel>> call, Throwable t) {
+                        dialog.dismiss();
+                        Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void getData2() {
+
+        isLoading = true;
+        ApiUtil.getApiInterface().getSearch(queried, page, 30)
+                .enqueue(new Callback<List<ImageModel>>() {
+
+                    @Override
+                    public void onResponse(Call<List<ImageModel>> call, Response<List<ImageModel>> response) {
+                        if (response.body() != null) {
+                            //searchData(queried);
                             list.addAll(response.body());
                             adapter.notifyDataSetChanged();
                         }
@@ -130,6 +167,7 @@ public final class MainActivity extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                hasSearched = true;
                 dialog.show();
                 searchData(query);
                 return false;
@@ -144,7 +182,8 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void searchData(String query) {
-        ApiUtil.getApiInterface().searchImage(query, page, 30)
+        queried = query;
+        ApiUtil.getApiInterface().searchImage(query, page, 400)
                 .enqueue(new Callback<Search>() {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
@@ -152,8 +191,6 @@ public final class MainActivity extends AppCompatActivity {
                         list.addAll(response.body().getResults());
                         adapter.notifyDataSetChanged();
                         dialog.dismiss();
-
-
                     }
 
                     @Override
