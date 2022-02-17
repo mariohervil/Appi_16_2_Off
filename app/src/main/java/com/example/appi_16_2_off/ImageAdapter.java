@@ -1,6 +1,7 @@
 package com.example.appi_16_2_off;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         Glide.with(context).load(list.get(position).getUrls().getRegular())
                 .into(holder.imageView);
+        holder.imageView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, AmplifiedImage.class);
+            intent.putExtra("image", list.get(position).getUrls().getRegular());
+            context.startActivity(intent);
+        });
     }
 
     @Override

@@ -7,21 +7,21 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appi_16_2_off.Model.ImageModel;
+import com.example.appi_16_2_off.Model.Search;
 import com.unsplash.pickerandroid.photopicker.UnsplashPhotoPicker;
 import com.unsplash.pickerandroid.photopicker.presentation.UnsplashPickerActivity;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,8 +71,8 @@ public final class MainActivity extends AppCompatActivity {
                 int visibleItem = gridLayoutManager.getChildCount();
                 int totalItems = gridLayoutManager.getItemCount();
                 int firstVisibleItemPosition = gridLayoutManager.findFirstCompletelyVisibleItemPosition();
-                if (!isLoading && !isLastPage){
-                    if ((visibleItem + firstVisibleItemPosition >= totalItems) && firstVisibleItemPosition>=0 && totalItems >= pageSize){
+                if (!isLoading && !isLastPage) {
+                    if ((visibleItem + firstVisibleItemPosition >= totalItems) && firstVisibleItemPosition >= 0 && totalItems >= pageSize) {
                         page++;
                         getData();
                     }
@@ -115,13 +115,16 @@ public final class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-    public boolean onCreateOptionsMenu(Menu menu){
+
+    public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.option_menu, menu);
         MenuItem search = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) search.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public boolean onQueryTextSubmit(String s) {
+            public boolean onQueryTextSubmit(String query) {
+                dialog.show();
+                searchData(query);
                 return false;
             }
 
@@ -131,6 +134,27 @@ public final class MainActivity extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    private void searchData(String query) {
+        ApiUtil.getApiInterface().searchImage(query)
+                .enqueue(new Callback<Search>() {
+                    @Override
+                    public void onResponse(Call<Search> call, Response<Search> response) {
+                        list.clear();
+                        list.addAll(response.body().getResults());
+                        adapter.notifyDataSetChanged();
+                        dialog.dismiss();
+
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Search> call, Throwable t) {
+
+                    }
+                });
+
     }
 
 }
