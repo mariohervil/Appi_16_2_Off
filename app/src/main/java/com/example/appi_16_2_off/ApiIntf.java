@@ -17,13 +17,16 @@ public interface ApiIntf {
     @Headers("Authorization: Client-ID "+ API_KEY)
     @GET("/photos")
     Call<List<ImageModel>> getImages(
+            @Query("query") String query,
             @Query("page") int page,
             @Query("per_page") int perPage
     );
     @Headers("Authorization: Client-ID "+ API_KEY)
     @GET("search/photos")
     Call<Search> searchImage(
-            @Query("query") String query
+            @Query("query") String query,
+            @Query("page") int page,
+    @Query("per_page") int perPage
 
     );
 }

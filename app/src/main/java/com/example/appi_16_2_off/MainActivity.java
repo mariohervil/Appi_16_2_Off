@@ -72,6 +72,7 @@ public final class MainActivity extends AppCompatActivity {
                     if ((visibleItem + firstVisibleItemPosition >= totalItems) && firstVisibleItemPosition >= 0 && totalItems >= pageSize) {
                         page++;
                         getData();
+
                     }
                 }
             }
@@ -94,12 +95,15 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void getData() {
+
         isLoading = true;
-        ApiUtil.getApiInterface().getImages(page, 30)
+        ApiUtil.getApiInterface().getImages("flowers" ,page, 30)
                 .enqueue(new Callback<List<ImageModel>>() {
+
                     @Override
                     public void onResponse(Call<List<ImageModel>> call, Response<List<ImageModel>> response) {
                         if (response.body() != null) {
+                            searchData("flowers");
                             list.addAll(response.body());
                             adapter.notifyDataSetChanged();
 
@@ -140,7 +144,7 @@ public final class MainActivity extends AppCompatActivity {
     }
 
     private void searchData(String query) {
-        ApiUtil.getApiInterface().searchImage(query)
+        ApiUtil.getApiInterface().searchImage(query, page, 30)
                 .enqueue(new Callback<Search>() {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
