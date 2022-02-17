@@ -70,7 +70,8 @@ public final class MainActivity extends AppCompatActivity {
                 int firstVisibleItemPosition = gridLayoutManager.findFirstCompletelyVisibleItemPosition();
                 if (!isLoading && !isLastPage){
                     if ((visibleItem + firstVisibleItemPosition >= totalItems) && firstVisibleItemPosition>=0 && totalItems >= pageSize){
-
+                        page++;
+                        getData();
                     }
                 }
             }
