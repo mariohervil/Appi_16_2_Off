@@ -81,11 +81,17 @@ public final class MainActivity extends AppCompatActivity {
         });
 
 
-        String secretKey = "WeN7foTBeRPiDo5cLQW_d97IcN9tzKlNkN3CxbRrIkw";
+      /*
+      *
+      *
+      *   String secretKey = "WeN7foTBeRPiDo5cLQW_d97IcN9tzKlNkN3CxbRrIkw";
         String accessKey = "V9aaJ9tmuIBxgY4q40S9S2HNHTVhFjay0lcUzIwr5fM";
         UnsplashPhotoPicker.INSTANCE.init(this.getApplication(), accessKey, secretKey, 20);
         boolean isMultipleSelection = false;
         this.startActivityForResult(UnsplashPickerActivity.Companion.getStartingIntent((Context) this, isMultipleSelection), REQUEST_CODE);
+      *
+      *
+      * */
         //
 // Create connection
     }
