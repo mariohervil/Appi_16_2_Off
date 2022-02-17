@@ -17,8 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.appi_16_2_off.Model.ImageModel;
 import com.example.appi_16_2_off.Model.Search;
-import com.unsplash.pickerandroid.photopicker.UnsplashPhotoPicker;
-import com.unsplash.pickerandroid.photopicker.presentation.UnsplashPickerActivity;
+
 
 import org.jetbrains.annotations.Nullable;
 
@@ -42,8 +41,6 @@ public final class MainActivity extends AppCompatActivity {
     private boolean isLastPage;
     final static int REQUEST_CODE = 1;
 
-    @SuppressWarnings("deprecation")
-    @SuppressLint("ResourceType")
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
