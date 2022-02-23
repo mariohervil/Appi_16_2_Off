@@ -99,63 +99,72 @@ public final class MainActivity extends AppCompatActivity {
 // Create connection
     }
 
-    private void getData() {
+    /**
+     private void getData() {
 
-        isLoading = true;
-        ApiUtil.getApiInterface().getImages(page, 30)
-                .enqueue(new Callback<List<ImageModel>>() {
+     isLoading = true;
+     ApiUtil.getApiInterface().getImages(page, 30)
+     .enqueue(new Callback<List<ImageModel>>() {
 
-                    @Override
-                    public void onResponse(Call<List<ImageModel>> call, Response<List<ImageModel>> response) {
-                        if (response.body() != null) {
-                            list.addAll(response.body());
-                            adapter.notifyDataSetChanged();
+    @Override
+    public void onResponse(Call<List<ImageModel>> call, Response<List<ImageModel>> response) {
+    if (response.body() != null) {
+    list.addAll(response.body());
+    adapter.notifyDataSetChanged();
 
-                        }
-
-                        isLoading = false;
-                        dialog.dismiss();
-                        if (list.size() > 0) {
-                            isLastPage = list.size() < pageSize;
-                        } else isLastPage = true;
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<ImageModel>> call, Throwable t) {
-                        dialog.dismiss();
-                        Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
-    private void getData2() {
-
-        isLoading = true;
-        ApiUtil.getApiInterface().getSearch(queried, page, 30)
-                .enqueue(new Callback<List<ImageModel>>() {
-
-                    @Override
-                    public void onResponse(Call<List<ImageModel>> call, Response<List<ImageModel>> response) {
-                        if (response.body() != null) {
-                            //searchData(queried);
-                            list.addAll(response.body());
-                            adapter.notifyDataSetChanged();
-                        }
-
-                        isLoading = false;
-                        dialog.dismiss();
-                        if (list.size() > 0) {
-                            isLastPage = list.size() < pageSize;
-                        } else isLastPage = true;
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<ImageModel>> call, Throwable t) {
-                        dialog.dismiss();
-                        Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+    isLoading = false;
+    dialog.dismiss();
+    if (list.size() > 0) {
+    isLastPage = list.size() < pageSize;
+    } else isLastPage = true;
     }
+
+    @Override
+    public void onFailure(Call<List<ImageModel>> call, Throwable t) {
+    dialog.dismiss();
+    Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+    }
+    });
+     }
+     *
+     */
+
+
+
+    /**
+     * private void getData2() {
+     *
+     *         isLoading = true;
+     *         ApiUtil.getApiInterface().getSearch(queried, page, 30)
+     *                 .enqueue(new Callback<List<ImageModel>>() {
+     *
+     *                     @Override
+     *                     public void onResponse(Call<List<ImageModel>> call, Response<List<ImageModel>> response) {
+     *                         if (response.body() != null) {
+     *                             //searchData(queried);
+     *                             list.addAll(response.body());
+     *                             adapter.notifyDataSetChanged();
+     *                         }
+     *
+     *                         isLoading = false;
+     *                         dialog.dismiss();
+     *                         if (list.size() > 0) {
+     *                             isLastPage = list.size() < pageSize;
+     *                         } else isLastPage = true;
+     *                     }
+     *
+     *                     @Override
+     *                     public void onFailure(Call<List<ImageModel>> call, Throwable t) {
+     *                         dialog.dismiss();
+     *                         Toast.makeText(MainActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+     *                     }
+     *                 });
+     *     }
+     *
+     */
+
 
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.option_menu, menu);
