@@ -22,7 +22,7 @@ public interface ApiIntf {
             @Query("per_page") int perPage
     );
     @Headers("Authorization: Client-ID "+ API_KEY)
-    @GET("/photos")
+    @GET("search/photos")
     Call<List<ImageModel>> getSearch(
             @Query("query") String query,
             @Query("page") int page,
@@ -36,4 +36,5 @@ public interface ApiIntf {
     @Query("per_page") int perPage
 
     );
+
 }

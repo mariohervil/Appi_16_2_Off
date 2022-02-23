@@ -47,6 +47,7 @@ public final class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerview);
+        Toast.makeText(this, "Welcome to Unsplash Appi!", Toast.LENGTH_LONG).show();
         list = new ArrayList<>();
         adapter = new ImageAdapter(this, list);
         gridLayoutManager = new GridLayoutManager(this, 3);
@@ -202,5 +203,3 @@ public final class MainActivity extends AppCompatActivity {
     }
 
 }
-
-
