@@ -58,7 +58,7 @@ public final class MainActivity extends AppCompatActivity {
         dialog.setMessage("Loading . . .");
         dialog.setCancelable(false);
         dialog.show();
-        getData();
+        searchData("flowers");
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -74,12 +74,8 @@ public final class MainActivity extends AppCompatActivity {
                 if (!isLoading && !isLastPage) {
                     if ((visibleItem + firstVisibleItemPosition >= totalItems) && firstVisibleItemPosition >= 0 && totalItems >= pageSize) {
                         page++;
+                        searchData("flowers");
 
-                        if (hasSearched) {
-                            getData2();
-                        } else if (!hasSearched) {
-                            getData();
-                        }
 
 
                     }
@@ -112,9 +108,9 @@ public final class MainActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<List<ImageModel>> call, Response<List<ImageModel>> response) {
                         if (response.body() != null) {
-                            //
                             list.addAll(response.body());
                             adapter.notifyDataSetChanged();
+
                         }
 
                         isLoading = false;
@@ -170,7 +166,7 @@ public final class MainActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 hasSearched = true;
                 dialog.show();
-                searchData(query);
+                searchData2(query);
                 return false;
             }
 
@@ -184,7 +180,26 @@ public final class MainActivity extends AppCompatActivity {
 
     private void searchData(String query) {
         queried = query;
-        ApiUtil.getApiInterface().searchImage(query, page, 400)
+        ApiUtil.getApiInterface().searchImage(query, page, 30)
+                .enqueue(new Callback<Search>() {
+                    @Override
+                    public void onResponse(Call<Search> call, Response<Search> response) {
+
+                        list.addAll(response.body().getResults());
+                        adapter.notifyDataSetChanged();
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Call<Search> call, Throwable t) {
+
+                    }
+                });
+
+    }
+    private void searchData2(String query) {
+
+        ApiUtil.getApiInterface().searchImage(query, page, 21)
                 .enqueue(new Callback<Search>() {
                     @Override
                     public void onResponse(Call<Search> call, Response<Search> response) {
@@ -201,5 +216,8 @@ public final class MainActivity extends AppCompatActivity {
                 });
 
     }
+
+
+
 
 }
